@@ -5,12 +5,20 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, CardActionArea } from '@mui/material';
 import { type } from '../utils';
+import { useNavigate } from 'react-router-dom';
 
-export default function PokemonCard({ item, types }) {
+export default function PokemonCard({ item, types, setPokemonDados }) {
+
+  const navigate = useNavigate();
+
 
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }} style={{ width: '16rem', cursor: "pointer", marginTop: "15px", marginLeft: "25px" }}>
+      <Card sx={{ maxWidth: 345 }} style={{ width: '16rem', cursor: "pointer", marginTop: "15px", marginLeft: "25px" }} onClick={() => {
+          navigate(`/${item.name}`)
+          setPokemonDados(item)
+        }}
+      >
         <CardActionArea>
           <CardMedia
             component="img"

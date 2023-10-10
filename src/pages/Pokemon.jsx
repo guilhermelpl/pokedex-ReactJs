@@ -1,6 +1,7 @@
 import NavBar from "../components/Navbar"
 
 const Pokemon = ({ pokemonDados }) => {
+  
   return (
     <>
       <NavBar hideSearch/>
