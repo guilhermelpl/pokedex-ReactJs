@@ -46,23 +46,22 @@ function Home({ setPokemonDados }) {
 
   return (
     <Template>
-
-        <Navbar Filter={PokemonFilter} />
-        {loading ? (
+      <Navbar Filter={PokemonFilter} />
+      {loading ? (
           <Loader />
-        ) : (
-          <Container maxWidth="false">
-            <Grid container>
-              {pokemon?.map((item, index) => (
-                <Grid item xs={12} md={2} key={index} className="mb-1">
-                  <Box>
-                    <PokemonCard item={item.data} types={item.data.types} setPokemonDados={setPokemonDados} />
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-          </Container>
-        )}
+      ) : (
+        <Container maxWidth="false">
+          <Grid container>
+            {pokemon?.map((item, index) => (
+              <Grid item xs={12} md={2} key={index} className="mb-1">
+                <Box>
+                  <PokemonCard item={item.data} types={item.data.types} setPokemonDados={setPokemonDados} />
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      )}
     </Template>
   );
 }
