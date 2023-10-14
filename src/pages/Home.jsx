@@ -4,15 +4,14 @@ import { Box, Container, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import PokemonCard from "../components/Card";
 
-import "../assets/css/App.css";
-
-import Loader from "../components/Loader";
+import Loader from '../components/Loader/'
 
 import axios from "axios";
 import Template from "../components/Template";
 
 function Home({ setPokemonDados }) {
   const [pokemon, setPokemon] = useState([]);
+  const [filteredPokemons, setFilteredPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,29 +29,24 @@ function Home({ setPokemonDados }) {
     });
   }
 
-  function PokemonFilter(name) {
+  const handleFilter = (name) => {
     if (name === "") {
-      getPokemons();
+     setFilteredPokemons(pokemon);
+    } else {
+      const filteredPokemons = pokemon.filter((item) => item.data.name.includes(name));
+      setFilteredPokemons(filteredPokemons);
     }
-    var filteredPokemons = [];
-
-    for (var i in pokemon) {
-      if (pokemon[i].data.name.includes(name)) {
-        filteredPokemons.push(pokemon[i]);
-      }
-    }
-    setPokemon(filteredPokemons);
-  }
+  };
 
   return (
     <Template>
-      <Navbar Filter={PokemonFilter} />
+      <Navbar Filter={handleFilter} />
       {loading ? (
-          <Loader />
+        <Loader />
       ) : (
         <Container maxWidth="false">
           <Grid container>
-            {pokemon?.map((item, index) => (
+            {filteredPokemons?.map((item, index) => (
               <Grid item xs={12} md={2} key={index} className="mb-1">
                 <Box>
                   <PokemonCard item={item.data} types={item.data.types} setPokemonDados={setPokemonDados} />

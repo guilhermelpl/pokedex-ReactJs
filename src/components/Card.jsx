@@ -1,38 +1,50 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea } from "@mui/material";
-import { type } from "../utils";
-import { useNavigate } from "react-router-dom";
 
-export default function PokemonCard({ item, types, setPokemonDados }) {
-  const navigate = useNavigate();
+import { type } from "../utils";
+
+import ModalPokemon from "./Modal";
+
+import { useState } from "react";
+
+const cardStyles = {
+  transition: 'transform 0.2s',
+  width: "16rem",
+  cursor: "pointer",
+  marginTop: "15px",
+  marginLeft: "25px",
+  background: "rgba(68, 85, 92, 0.4)",
+  '&:hover': {
+    transform: 'scale(1.03)',
+    background: "rgba(68, 85, 92, 0.8)",
+  },
+};
+
+export default function PokemonCard({ item, types }) {
+
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
       <Card
-        sx={{ maxWidth: 345 }}
-        style={{
-          width: "16rem",
-          cursor: "pointer",
-          marginTop: "15px",
-          marginLeft: "25px",
-          background: "rgba(68, 85, 92, 0.4)",
-        }}
+        sx={cardStyles}
         onClick={() => {
-          navigate(`/${item.name}`);
-          setPokemonDados(item);
+          { open === false ? setOpen(true) : setOpen(false) }
         }}
       >
+        {open && (
+          <ModalPokemon open={open} item={item} />
+        )}
         <CardActionArea>
           <Typography
-            className="text-uppercase bold text-center mt-1"
+            className="text-uppercase text-center mt-2"
             gutterBottom
             variant="h5"
             component="div"
-            style={{ color: "#FFF" }}
+            color={"white"}
           >
             {item.name}
           </Typography>
@@ -49,3 +61,5 @@ export default function PokemonCard({ item, types, setPokemonDados }) {
     </div>
   );
 }
+
+// image={item.sprites.front_shiny}

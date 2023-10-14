@@ -13,10 +13,6 @@ import { useNavigate } from 'react-router-dom';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
   marginLeft: 0,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
@@ -36,17 +32,17 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
+  background: "rgba(30, 30, 30, 0.5)",
+  borderRadius:"35px",
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
+      width: '75ch',
       '&:focus': {
-        width: '20ch',
+        width: '105ch',
       },
     },
   },
@@ -56,24 +52,22 @@ export default function NavBar({ Filter, hideSearch }) {
   const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#303030" }}>
         <Toolbar>
           <Typography
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Box component="img" src={Logo} style={{ width: "150px" }} sx={{cursor:"pointer"}} onClick={() => navigate("/")} />
+          <Box component="img" src={Logo} style={{ width: "150px" }} sx={{cursor:"pointer", marginLeft:"20px"}} onClick={() => navigate("/")} />
           </Typography>
           {!hideSearch && (
-            <Search onChange={(e) => Filter(e.target.value)}>
+            <Search onChange={(e) => Filter(e.target.value)} sx={{marginRight:"27px"}}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
-              <StyledInputBase placeholder="Pesquisar..." inputProps={{ "aria-label": "search" }} />
+              <StyledInputBase placeholder="Pesquisar..." inputProps={{ "aria-label": "search" }} color='white' />
             </Search>
           )}
         </Toolbar>
-      </AppBar>
     </Box>
   );
 }
